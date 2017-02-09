@@ -87,6 +87,7 @@
         self.isNoNet = NO;
         [self loadNetWork];
     }];
+    
     //在fail回调方法里加入
     /*
     [self wyh_showEmptyMsg:@"网络差，刷新试试" dataCount:self. dataSource.count isHasBtn:NO Handler:^{

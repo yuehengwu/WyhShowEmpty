@@ -27,10 +27,11 @@
  */
 -(void)loadNetWork{
     
-    
     [self wyh_showEmptyMsg:@"网络不给力，点击刷新" dataCount:0 isHasBtn:YES Handler:^{
         [self loadNetWork];
     }];
+    
+    
 }
 
 
