@@ -15,6 +15,6 @@
 
 ##如果你希望联系到我:
 
-##   简书地址:http://www.jianshu.com/users/fb31a3d1ec30/latest_articles
+##   简书地址:http://www.jianshu.com/u/b76e3853ae0b
 ##github地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
 ##    qq邮箱: 609232770@qq.com 
