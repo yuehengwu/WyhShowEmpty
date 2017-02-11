@@ -222,13 +222,10 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         case ImgTypeUrl:
         {
             __block NSData *imgData;
-            //此处应异步处理,可用SDWebImage进行加载
-            dispatch_async(WYH_GlobalQueue, ^{
-                imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:style.imageConfig.imageData]];
-            });
-            dispatch_async(WYH_MainQueue, ^{
-                imgView.image = [[UIImage alloc]initWithData:imgData];
-            });
+            //此处暂时必须同步处理,若出现明显卡顿可用SDWebImage进行加载
+            imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:style.imageConfig.imageData]];
+            imgView.image = [[UIImage alloc]initWithData:imgData];
+            
         }
             break;
         case GifImgLocalUrl:

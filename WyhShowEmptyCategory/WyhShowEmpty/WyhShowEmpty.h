@@ -12,5 +12,3 @@
 
 #import "WyhEmptyStyle.h"
 
-
-//asdasd
