@@ -34,7 +34,7 @@
 -(UITableView *)tableView{
     
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenSize.width, ScreenSize.height) style:(UITableViewStylePlain)];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, ScreenSize.width, ScreenSize.height-300) style:(UITableViewStyleGrouped)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [self.view addSubview:_tableView];
@@ -48,6 +48,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    self.navigationController.navigationBar.translucent = NO;
+    
+
+    
+    self.view.backgroundColor = [UIColor grayColor];
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"出现" style:(UIBarButtonItemStyleDone) target:self action:@selector(simNoNetWork)];
     self.navigationItem.rightBarButtonItem = right;
@@ -66,7 +72,13 @@
     return @[@"测试---1",
              @"测试---2",
              @"测试---3",
-             @"测试---4"].mutableCopy;
+             @"测试---4",
+             @"测试---5",
+             @"测试---6",
+             @"测试---7",
+             @"测试---8",
+             @"测试---9",
+             ].mutableCopy;
 }
 
 /**
@@ -80,7 +92,8 @@
     
     [self.tableView reloadData];
     
-    self.wyhEmptyStyle.superView = self.tableView;
+    self.wyhEmptyStyle.imageOragionY = 0.1; /*变化起始位置 所占父视图比例*/
+    self.wyhEmptyStyle.superView = self.tableView; /* 若tableView的bounds不与屏幕相等时,必要的设置 */
     
     //在success回调方法里加入
     [self wyh_showEmptyMsg:@"当前暂无内容，点击屏幕刷新" dataCount:self.dataSource.count isHasBtn:NO Handler:^{
@@ -101,7 +114,7 @@
 #pragma mark - tableView delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _dataSource.count;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -116,6 +129,11 @@
     return cell;
     
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -26,22 +26,49 @@
 
 @property (nonatomic, strong) UILabel *tipLabel;
 
+@property (nonatomic, strong) UIView *coverView;
+
 @end
 
 
 @implementation UIViewController (WyhShowEmpty)
 
+static CGFloat superViewWidth = 0.0;
+static CGFloat superViewHeight = 0.0;
+
++(void)load{
+    
+#if DEBUG
+    NSLog(@"\n\
+          WyhShowEmpty 可进行自定义效果展示,只需要重写WyhEmptyStyle的属性\n\
+          若当你希望将WyhShowEmpty展示在tableView上,请设置:\n\
+          self.wyhEmptyStyle.superView = self.tableView\n\
+          若仍不满意位置,可自行调节起始y值位置:\n\
+          self.wyhEmptyStyle.imageOragionY(imageOragionY为比例设置)\n\
+          如果你在使用中仍然存在问题,请尝试联系我\n\
+          简书:   http://www.jianshu.com/u/b76e3853ae0b \n\
+          QQ邮箱: 609223770@qq.com \n\
+          ");
+    /**
+     *  简书: http://www.jianshu.com/u/b76e3853ae0b
+     *  QQ : 609223770@qq.com
+     */
+#endif
+    
+}
 
 -(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count{
     
     if (!self.wyhEmptyStyle) {
         WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
+        wyhStyle.refreshStyle = noRefreshStyle;
+        wyhStyle.superView = self.view;
         wyhStyle.isOnlyText = YES;
         wyhStyle.refreshStyle = noRefreshStyle;
-        wyhStyle.tipText = msg;
-        wyhStyle.superView = self.view;
         self.wyhEmptyStyle = wyhStyle;
     }
+    
+    self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
     
     [self setupShowedFromDataCount];
@@ -51,11 +78,11 @@
     
     if (!self.wyhEmptyStyle) {
         WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
-        wyhStyle.refreshStyle = hasBtn?RefreshClickOnBtnStyle:RefreshClockOnFullScreenStyle;
-        wyhStyle.tipText = msg;
         wyhStyle.superView = self.view;
         self.wyhEmptyStyle = wyhStyle;
     }
+    self.wyhEmptyStyle.refreshStyle = hasBtn?RefreshClickOnBtnStyle:RefreshClockOnFullScreenStyle;
+    self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
     
     [self setupShowedFromDataCount];
@@ -74,10 +101,10 @@
             wyhStyle.imageConfig.type = ImgTypeName;
             wyhStyle.imageConfig.imageData = imageName;
         }
-        wyhStyle.tipText = msg;
         wyhStyle.superView = self.view;
         self.wyhEmptyStyle = wyhStyle;
     }
+    self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
     
     [self setupShowedFromDataCount];
@@ -108,8 +135,45 @@
     
     self.isShowed = @"1";
     
+    [self setupCoverViewPostionWithStyle:style];
+    
     [self setupSubViewsPositionWithStyle:style];
     
+}
+
+/**
+ 布局coverView
+
+ @param style 自定义样式
+ */
+-(void)setupCoverViewPostionWithStyle:(WyhEmptyStyle *)style{
+    
+    CGFloat coverX = 0.0;
+    CGFloat coverY = 0.0;
+    
+    if ([style.superView isKindOfClass:[UITableView class]]) {
+        __block UIView *tableViewWrapperView;
+        
+        [((UITableView *)style.superView).subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]) {
+                tableViewWrapperView = obj;
+                *stop = YES;
+            }
+        }];
+//        style.superView = tableViewWrapperView;
+        
+        if (tableViewWrapperView.wyh_y != style.superView.wyh_y) {
+            coverY = -64.0; /* 因为当某些导航栏透明效果影响,tableView的wrapperView起点会偏移64 */
+        }
+    }
+    superViewWidth = style.superView.wyh_w;
+    superViewHeight = style.superView.wyh_h;
+    
+    UIView *coverView = [[UIView alloc]init];
+    coverView.frame = CGRectMake(coverX, coverY, superViewWidth, superViewHeight);
+    coverView.backgroundColor = [UIColor clearColor];
+    self.coverView = coverView;
+    [self.wyhEmptyStyle.superView addSubview:self.coverView];
 }
 
 static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const修饰*/
@@ -146,6 +210,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     if (style.refreshStyle == RefreshClockOnFullScreenStyle) {
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickAction)];
+        style.superView.userInteractionEnabled = YES;
         [style.superView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
         
         [self setupImageViewWithStyle:style];
@@ -178,20 +243,20 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     tipLabel.textColor = style.tipTextColor;
     tipLabel.numberOfLines = 0;
     tipLabel.textAlignment = NSTextAlignmentCenter;
-    CGSize maxSize = CGSizeMake(ScreenSize.width - 40, MAXFLOAT);
+    CGSize maxSize = CGSizeMake(superViewWidth - 40, MAXFLOAT);
     CGSize finalSize = [tipLabel sizeThatFits:maxSize];
     
-    NSAssert(ScreenSize.height>finalSize.height, @"设置的文本太长，超出了屏幕的高度！");
+    NSAssert(superViewHeight>finalSize.height, @"设置的文本太长，超出了父视图的高度！");
     
-    tipLabel.frame = CGRectMake(20, (ScreenSize.height - finalSize.height)/2, ScreenSize.width - 40, finalSize.height);
-    [style.superView addSubview:tipLabel];
+    tipLabel.frame = CGRectMake(20, (superViewHeight - finalSize.height)/2, superViewWidth - 40, finalSize.height);
+    [self.coverView addSubview:tipLabel];
     self.tipLabel = tipLabel;
     
     if (!style.isOnlyText) {
         
         NSAssert(self.tipImageView, @"setupTiplabel必须在setupImage之后，否则获取不到image的frame");
         
-        CGFloat tipX = (ScreenSize.width - tipLabel.wyh_w) * 0.5;
+        CGFloat tipX = (superViewWidth - tipLabel.wyh_w) * 0.5;
         CGFloat tipY = self.tipImageView.wyh_bottom + 30;
         tipLabel.frame = CGRectMake(tipX, tipY, tipLabel.wyh_w, tipLabel.wyh_h);
         
@@ -241,7 +306,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     }
     [imgView sizeToFit];
     if (style.imageSize.width != 0) {
-        NSAssert(style.imageSize.width <= ScreenSize.width, @"");
+        NSAssert(style.imageSize.width <= superViewWidth, @"");
         imgView.wyh_size = style.imageSize;
     }else{
         NSAssert(style.imageMaxWidth>0, @"图片允许的最大宽度不得小于0");
@@ -250,10 +315,10 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         imgView.wyh_w = imgView.wyh_w > allowedMaxW ? allowedMaxW :imgView.wyh_w;
         imgView.wyh_h = imgView.wyh_h > allowedMaxH ? allowedMaxH:imgView.wyh_h;
     }
-    CGFloat imagVx = (ScreenSize.width - imgView.wyh_w) * 0.5;
-    CGFloat imagVy = style.imageOragionY;
+    CGFloat imagVx = (superViewWidth - imgView.wyh_w) * 0.5;
+    CGFloat imagVy = superViewHeight*style.imageOragionY;
     imgView.frame = CGRectMake(imagVx, imagVy, imgView.wyh_w, imgView.wyh_h);
-    [style.superView addSubview:imgView];
+    [self.coverView addSubview:imgView];
     self.tipImageView = imgView;
 }
 
@@ -271,7 +336,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     [btn sizeToFit];
     [btn setTitleColor:style.btnTitleColor forState:UIControlStateNormal];
     btn.titleLabel.textColor = [UIColor lightGrayColor];
-    CGFloat btnX = (ScreenSize.width - style.btnWidth) * .5f;
+    CGFloat btnX = (superViewWidth - style.btnWidth) * .5f;
     CGFloat btnY = CGRectGetMaxY(self.tipLabel.frame) + 20;/*20是一个神奇数字*/
     btn.frame = CGRectMake(btnX, btnY, style.btnWidth, style.btnHeight);
     btn.layer.borderColor = style.btnLayerBorderColor.CGColor;
@@ -279,7 +344,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     btn.layer.cornerRadius = style.btnLayerCornerRadius;
     btn.layer.masksToBounds = YES;
     self.tipButton = btn;
-    [style.superView addSubview:btn];
+    [self.coverView addSubview:btn];
     [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -287,7 +352,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
 #pragma mark - btnClickAction
 -(void)btnClickAction{
     
-    NSLog(@"点击了刷新");
+//    NSLog(@"点击了刷新");
     [self removeSubViews]; /*remove一定要放在回调block之前*/
     
     if (self.tipHandler) {
@@ -305,7 +370,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     [self.tipLabel removeFromSuperview];
     [self.tipButton removeFromSuperview];
     [self.tipImageView removeFromSuperview];
-    
+    [self.coverView removeFromSuperview];
 }
 
 #pragma mark - setter and getter
@@ -359,7 +424,14 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
 -(NSString *)isShowed{
     return objc_getAssociatedObject(self, &isShowedKey);
 }
-    
+
+#pragma mark - coverView
+-(void)setCoverView:(UIView *)coverView{
+    objc_setAssociatedObject(self, &coverViewKey, coverView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIView *)coverView{
+    return objc_getAssociatedObject(self, &coverViewKey);
+}
 
 
 

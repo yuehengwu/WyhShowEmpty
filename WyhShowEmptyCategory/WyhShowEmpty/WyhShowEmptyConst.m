@@ -18,4 +18,6 @@ NSString *const blockKey = @"blockKey";
 NSString *const imageKey = @"imageKey";
 NSString *const styleKey = @"styleKey";
 NSString *const isShowedKey = @"isShowedKey";
+NSString *const coverViewKey = @"coverViewKey";
+
 @end

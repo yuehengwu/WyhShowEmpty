@@ -16,7 +16,7 @@
 -(void)setType:(imageType)type{
     if (_type != type) {
         _type = type;
-        if (type == GifImgLocalUrl) { /* 注意若要自定imageData请再setType之后设置 */
+        if (type == GifImgLocalUrl) { /* 注意:当自定义gif图时,若要自定imageData请再setType之后设置 */
             self.imageData = @"WyhEmpty.bundle/转圈圈.gif";
             self.gifArray = [self wyh_imagesWithGif:self.imageData].mutableCopy;
         }
@@ -62,7 +62,7 @@
         self.btnWidth = 100;
         self.btnHeight = 35;
         self.tipTextColor = [UIColor lightGrayColor];
-        self.imageOragionY = ScreenSize.height * .2f;/*默认起点位置在屏幕高的20%位置上*/
+        self.imageOragionY = 0.2f;/*默认起点位置在屏幕高的20%位置上*/
         
     }
     return self;

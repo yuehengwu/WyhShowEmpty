@@ -32,5 +32,6 @@ UIKIT_EXTERN NSString *const blockKey;
 UIKIT_EXTERN NSString *const imageKey;
 UIKIT_EXTERN NSString *const styleKey;
 UIKIT_EXTERN NSString *const btnKey;
+UIKIT_EXTERN NSString *const coverViewKey;
 
 @end

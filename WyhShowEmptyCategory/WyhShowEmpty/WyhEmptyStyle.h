@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, imageType)
 @property (nonatomic, assign) CGSize imageSize;
 
 /**
- 图片的起点y值 默认起点位置在屏幕高的20%位置上
+ ! 图片的起点y值占父视图的比例 默认0.2f
  */
 @property (nonatomic, assign) CGFloat imageOragionY;
 
