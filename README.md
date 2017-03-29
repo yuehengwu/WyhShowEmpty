@@ -3,13 +3,12 @@
 ## 简单解决对于UIViewController/UITableViewController无网络、无内容时的展示,进来看一下动图秒懂
 
 
-## 示例效果 Tip:如果gif太快看不了 请点击gif查看
+## 示例效果 
 
-![应用中示例.gif](http://upload-images.jianshu.io/upload_images/4097230-1fbdea155c82b3c2.gif?imageMogr2/auto-orient/strip)
 
-![demo中示例.gif](http://upload-images.jianshu.io/upload_images/4097230-3fdbfc4e2c758564.gif?imageMogr2/auto-orient/strip)
+### 动图示例请移步至简书: http://www.jianshu.com/p/34ffaa883806
 
-![示例1](http://upload-images.jianshu.io/upload_images/4097230-e838e3a890a21264.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![示例](http://upload-images.jianshu.io/upload_images/4097230-4431fc807b524141.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 代码示例: 
 
@@ -58,10 +57,9 @@
 }
 ```
 
-**具体原理请看源码**
 
-##如果你希望联系到我:
+## 具体原理请看源码，如果你希望联系到我:
 
-##   简书地址:http://www.jianshu.com/u/b76e3853ae0b
-##github地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
-##    qq邮箱: 609232770@qq.com 
+###   简书地址:http://www.jianshu.com/u/b76e3853ae0b
+### github地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
+###    qq邮箱: 609232770@qq.com 
