@@ -251,7 +251,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
 -(void)setupTipLabelWithStyle:(WyhEmptyStyle *)style{
     
     UILabel *tipLabel = [[UILabel alloc]init];
-    tipLabel.text = !style.tipText ? defaultTipText : style.tipText;/* defaultTipText 为默认提示语*/
+    tipLabel.text = !style.tipText ? wyh_defaultTipText : style.tipText;/* defaultTipText 为默认提示语*/
     tipLabel.textColor = style.tipTextColor;
     tipLabel.numberOfLines = 0;
     tipLabel.textAlignment = NSTextAlignmentCenter;
@@ -337,7 +337,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
 -(void)setupButtonWithStyle:(WyhEmptyStyle *)style{
     
     NSAssert(self.tipLabel != nil, @"setupBtn必须在setupLabel之后，否则获取不到label的frame");
-    style.btnTipText = !style.btnTipText ? defaultBtnTipText : style.btnTipText;
+    style.btnTipText = !style.btnTipText ? wyh_defaultBtnTipText : style.btnTipText;
     style.btnTitleColor = !style.btnTitleColor ? [UIColor redColor] : style.btnTitleColor;
     style.btnLayerBorderColor = !style.btnLayerBorderColor ? [UIColor lightGrayColor] : style.btnLayerBorderColor;
     
@@ -389,61 +389,61 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
 
 #pragma mark - label
 -(void)setTipLabel:(UILabel *)tipLabel{
-    objc_setAssociatedObject(self, &labelKey, tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_labelKey, tipLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UILabel *)tipLabel{
     
-    return objc_getAssociatedObject(self, &labelKey);
+    return objc_getAssociatedObject(self, &wyh_labelKey);
 }
 
 #pragma mark - button
 -(void)setTipButton:(UIButton *)tipButton{
-    objc_setAssociatedObject(self, &btnKey, tipButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_btnKey, tipButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(UIButton *)tipButton{
-    return objc_getAssociatedObject(self, &btnKey);
+    return objc_getAssociatedObject(self, &wyh_btnKey);
 }
 
 #pragma mark - imageView
 -(void)setTipImageView:(UIImageView *)tipImageView{
-    objc_setAssociatedObject(self, &imageKey, tipImageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_imageKey, tipImageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIImageView *)tipImageView{
-    return objc_getAssociatedObject(self, &imageKey);
+    return objc_getAssociatedObject(self, &wyh_imageKey);
 }
 
 #pragma mark - block
 -(void)setTipHandler:(void (^)())tipHandler{
-    objc_setAssociatedObject(self, &blockKey, tipHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_blockKey, tipHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(void (^)())tipHandler{
-    return objc_getAssociatedObject(self, &blockKey);
+    return objc_getAssociatedObject(self, &wyh_blockKey);
 }
 
 #pragma mark - wyhStyle
 -(void)setWyhEmptyStyle:(WyhEmptyStyle *)wyhEmptyStyle{
-    objc_setAssociatedObject(self, &styleKey, wyhEmptyStyle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_styleKey, wyhEmptyStyle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(WyhEmptyStyle *)wyhEmptyStyle{
     
-    return objc_getAssociatedObject(self, &styleKey);
+    return objc_getAssociatedObject(self, &wyh_styleKey);
 }
 
 #pragma mark - isShowed
 -(void)setIsShowed:(NSString *)isShowed{
-    objc_setAssociatedObject(self, &isShowedKey, isShowed, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_isShowedKey, isShowed, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(NSString *)isShowed{
-    return objc_getAssociatedObject(self, &isShowedKey);
+    return objc_getAssociatedObject(self, &wyh_isShowedKey);
 }
 
 #pragma mark - coverView
 -(void)setCoverView:(UIView *)coverView{
-    objc_setAssociatedObject(self, &coverViewKey, coverView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &wyh_coverViewKey, coverView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(UIView *)coverView{
-    return objc_getAssociatedObject(self, &coverViewKey);
+    return objc_getAssociatedObject(self, &wyh_coverViewKey);
 }
 
 

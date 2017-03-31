@@ -13,7 +13,7 @@
 
 
 //16进制颜色
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define WYHColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 //屏幕尺寸
 #define ScreenSize [UIScreen mainScreen].bounds.size
@@ -24,14 +24,14 @@
 //主线程
 #define WYH_MainQueue dispatch_get_main_queue()
 
-UIKIT_EXTERN NSString *const defaultTipText;
-UIKIT_EXTERN NSString *const defaultBtnTipText;
-UIKIT_EXTERN NSString *const isShowedKey;
-UIKIT_EXTERN NSString *const labelKey;
-UIKIT_EXTERN NSString *const blockKey;
-UIKIT_EXTERN NSString *const imageKey;
-UIKIT_EXTERN NSString *const styleKey;
-UIKIT_EXTERN NSString *const btnKey;
-UIKIT_EXTERN NSString *const coverViewKey;
+UIKIT_EXTERN NSString *const wyh_defaultTipText;
+UIKIT_EXTERN NSString *const wyh_defaultBtnTipText;
+UIKIT_EXTERN NSString *const wyh_isShowedKey;
+UIKIT_EXTERN NSString *const wyh_labelKey;
+UIKIT_EXTERN NSString *const wyh_blockKey;
+UIKIT_EXTERN NSString *const wyh_imageKey;
+UIKIT_EXTERN NSString *const wyh_styleKey;
+UIKIT_EXTERN NSString *const wyh_btnKey;
+UIKIT_EXTERN NSString *const wyh_coverViewKey;
 
 @end

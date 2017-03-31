@@ -56,7 +56,7 @@
         self.btnTipText = @"重试";
         self.btnImage = nil;
         self.btnTitleColor = [UIColor redColor];
-        self.btnLayerBorderColor = UIColorFromRGB(0xf4f5f6);
+        self.btnLayerBorderColor = WYHColorFromRGB(0xf4f5f6);
         self.btnLayerCornerRadius = 2;
         self.btnLayerborderWidth = 1;
         self.btnWidth = 100;

@@ -10,14 +10,14 @@
 
 @implementation WyhShowEmptyConst
 
-NSString *const defaultTipText = @"暂无内容";
-NSString *const defaultBtnTipText = @"重试";
-NSString *const btnKey = @"btnKey";
-NSString *const labelKey = @"labelKey";
-NSString *const blockKey = @"blockKey";
-NSString *const imageKey = @"imageKey";
-NSString *const styleKey = @"styleKey";
-NSString *const isShowedKey = @"isShowedKey";
-NSString *const coverViewKey = @"coverViewKey";
+NSString *const wyh_defaultTipText = @"暂无内容";
+NSString *const wyh_defaultBtnTipText = @"重试";
+NSString *const wyh_btnKey = @"btnKey";
+NSString *const wyh_labelKey = @"labelKey";
+NSString *const wyh_blockKey = @"blockKey";
+NSString *const wyh_imageKey = @"imageKey";
+NSString *const wyh_styleKey = @"styleKey";
+NSString *const wyh_isShowedKey = @"isShowedKey";
+NSString *const wyh_coverViewKey = @"coverViewKey";
 
 @end
