@@ -65,7 +65,7 @@
     [self.table reloadData];
     
     
-    self.wyhEmptyStyle.superView = self.table;/* 若tableView的bounds不与屏幕相等时,必要的设置 */
+//    self.wyhEmptyStyle.superView = self.table;/* 现已不需要设置*/
     
     [self wyh_showEmptyMsg:@"网络不给力，点击刷新" dataCount:self.dataSource.count isHasBtn:YES Handler:^{
         self.isNoNet = NO;
@@ -74,6 +74,8 @@
     
     
 }
+
+#define ScreenSize [UIScreen mainScreen].bounds.size
 
 -(UITableView *)table{
     

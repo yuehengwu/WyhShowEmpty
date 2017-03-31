@@ -22,6 +22,8 @@
 
 @end
 
+#define ScreenSize [UIScreen mainScreen].bounds.size
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -42,7 +44,7 @@
         
         _dataSource = @[@"纯文本展示",
                         @"带图片带重试按钮展示",
-                        @"带图片点击屏幕重试展示",
+                        @"缩小tableView的无内容展示",
                         @"自定义style，带动图展示"].mutableCopy;
     }
     return _dataSource;

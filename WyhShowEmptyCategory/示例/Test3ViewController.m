@@ -8,6 +8,8 @@
 
 #import "Test3ViewController.h"
 
+#define ScreenSize [UIScreen mainScreen].bounds.size
+
 @interface Test3ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -93,7 +95,7 @@
     [self.tableView reloadData];
     
     self.wyhEmptyStyle.imageOragionY = 0.1; /*变化起始位置 所占父视图比例*/
-    self.wyhEmptyStyle.superView = self.tableView; /* 若tableView的bounds不与屏幕相等时,必要的设置 */
+//    self.wyhEmptyStyle.superView = self.tableView; /* 现已不需要设置 */
     
     //在success回调方法里加入
     [self wyh_showEmptyMsg:@"当前暂无内容，点击屏幕刷新" dataCount:self.dataSource.count isHasBtn:NO Handler:^{

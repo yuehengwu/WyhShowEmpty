@@ -41,9 +41,10 @@ static CGFloat superViewHeight = 0.0;
 #if DEBUG
     NSLog(@"\n\
           WyhShowEmpty 可进行自定义效果展示,只需要重写WyhEmptyStyle的属性\n\
-          若当你希望将WyhShowEmpty展示在tableView上,请设置:\n\
-          self.wyhEmptyStyle.superView = self.tableView\n\
-          若仍不满意位置,可自行调节起始y值位置:\n\
+          现已无需设置superView为tableView,默认加在tableView上\n\
+          若需求不同,请自行到UIViewController+WyhShowEmpty.m进行修改\n\
+          若当你希望调整WyhShowEmpty展示的位置\n\
+          请自行调节起始y值位置:\n\
           self.wyhEmptyStyle.imageOragionY(imageOragionY为比例设置)\n\
           如果你在使用中仍然存在问题,请尝试联系我\n\
           简书:   http://www.jianshu.com/u/b76e3853ae0b \n\
@@ -150,6 +151,17 @@ static CGFloat superViewHeight = 0.0;
     
     CGFloat coverX = 0.0;
     CGFloat coverY = 0.0;
+    __block UITableView *coverTable;
+    /** 为了更方便用户调用,默认直接将coverView加在tableView上,若有不同需求可自行在此修改*/
+    if (![style.superView isKindOfClass:[UITableView class]]) {
+        [style.superView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[UITableView class]]) {
+                coverTable = (UITableView *)obj;
+                style.superView = coverTable;
+                *stop = YES;
+            }
+        }];
+    }
     
     if ([style.superView isKindOfClass:[UITableView class]]) {
         __block UIView *tableViewWrapperView;
@@ -414,6 +426,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     objc_setAssociatedObject(self, &styleKey, wyhEmptyStyle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(WyhEmptyStyle *)wyhEmptyStyle{
+    
     return objc_getAssociatedObject(self, &styleKey);
 }
 
