@@ -1,8 +1,8 @@
 //
-//  UIViewController+WyhShowEmpty.h
+//  UIView+WyhShowEmpty.h
 //  WyhShowEmptyCategory
 //
-//  Created by 吴岳恒 on 2017/2/8.
+//  Created by wyh on 2017/4/6.
 //  Copyright © 2017年 wyh. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @class WyhEmptyStyle;
 
-@interface UIViewController (WyhShowEmpty)
+@interface UIView (WyhShowEmpty)
 
 /**
  若自定义style，有点击方法时，给外界做处理,若没自定义建议使用
@@ -22,6 +22,7 @@
  自定义style
  */
 @property (nonatomic, strong) WyhEmptyStyle *wyhEmptyStyle;
+
 
 /**
  根据数据源个数展示纯文本视图
@@ -59,4 +60,5 @@
  @param style 自定义样式
  */
 -(void)wyh_showWithStyle:(WyhEmptyStyle *)style;
+
 @end

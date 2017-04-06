@@ -8,5 +8,7 @@
 
 #import "UIViewController+WyhShowEmpty.h"
 
+#import "UIView+WyhShowEmpty.h"
+
 #import "WyhEmptyStyle.h"
 

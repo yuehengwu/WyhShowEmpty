@@ -12,6 +12,7 @@
 		09047AAD1E4C0B4D0024598B /* Test2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09047AAC1E4C0B4D0024598B /* Test2ViewController.m */; };
 		09047AB01E4C0CCB0024598B /* Test3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09047AAF1E4C0CCB0024598B /* Test3ViewController.m */; };
 		09047AB31E4C16310024598B /* Test4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09047AB21E4C16310024598B /* Test4ViewController.m */; };
+		09D4E3621E95DC2600602D3D /* UIView+WyhShowEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4E3611E95DC2600602D3D /* UIView+WyhShowEmpty.m */; };
 		DFE715B51E4ACB8200498449 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE715B41E4ACB8200498449 /* main.m */; };
 		DFE715B81E4ACB8200498449 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE715B71E4ACB8200498449 /* AppDelegate.m */; };
 		DFE715BB1E4ACB8200498449 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE715BA1E4ACB8200498449 /* ViewController.m */; };
@@ -55,6 +56,8 @@
 		09047AAF1E4C0CCB0024598B /* Test3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test3ViewController.m; sourceTree = "<group>"; };
 		09047AB11E4C16310024598B /* Test4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test4ViewController.h; sourceTree = "<group>"; };
 		09047AB21E4C16310024598B /* Test4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test4ViewController.m; sourceTree = "<group>"; };
+		09D4E3601E95DC2600602D3D /* UIView+WyhShowEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WyhShowEmpty.h"; sourceTree = "<group>"; };
+		09D4E3611E95DC2600602D3D /* UIView+WyhShowEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WyhShowEmpty.m"; sourceTree = "<group>"; };
 		DFE715B01E4ACB8200498449 /* WyhShowEmptyCategory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WyhShowEmptyCategory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE715B41E4ACB8200498449 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DFE715B61E4ACB8200498449 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				DFF112151E4B0D7800B6CC38 /* UIView+WyhExtension.m */,
 				DFF112161E4B0D7800B6CC38 /* UIViewController+WyhShowEmpty.h */,
 				DFF112171E4B0D7800B6CC38 /* UIViewController+WyhShowEmpty.m */,
+				09D4E3601E95DC2600602D3D /* UIView+WyhShowEmpty.h */,
+				09D4E3611E95DC2600602D3D /* UIView+WyhShowEmpty.m */,
 				DFF112181E4B0D7800B6CC38 /* WyhEmptyStyle.h */,
 				DFF112191E4B0D7800B6CC38 /* WyhEmptyStyle.m */,
 				DFF1121E1E4B0E6D00B6CC38 /* WyhShowEmptyConst.h */,
@@ -348,6 +353,7 @@
 				DFF1121B1E4B0D7800B6CC38 /* UIViewController+WyhShowEmpty.m in Sources */,
 				09047AAD1E4C0B4D0024598B /* Test2ViewController.m in Sources */,
 				09047AB31E4C16310024598B /* Test4ViewController.m in Sources */,
+				09D4E3621E95DC2600602D3D /* UIView+WyhShowEmpty.m in Sources */,
 				DFE715B81E4ACB8200498449 /* AppDelegate.m in Sources */,
 				DFE715B51E4ACB8200498449 /* main.m in Sources */,
 				DFF112201E4B0E6D00B6CC38 /* WyhShowEmptyConst.m in Sources */,
