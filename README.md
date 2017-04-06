@@ -1,6 +1,6 @@
 # WyhShowEmpty
 
-## 简单解决对于UIViewController/UITableViewController无网络、无内容时的展示,进来看一下动图秒懂
+## WyhShowEmpty是一款配合tableView等视图进行无内容无网络展示效果的工具 简单的一句调用 方便高效
 
 
 ## 示例效果 
@@ -60,6 +60,6 @@
 
 ## 具体原理请看源码，如果你希望联系到我:
 
-###   简书地址:http://www.jianshu.com/u/b76e3853ae0b
-### github地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
-###    qq邮箱: 609232770@qq.com 
+####   简书地址:http://www.jianshu.com/u/b76e3853ae0b
+#### GitHub地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
+####    qq邮箱: 609232770@qq.com 
