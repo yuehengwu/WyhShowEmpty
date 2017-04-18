@@ -31,6 +31,7 @@
 @implementation UIView (WyhShowEmpty)
 static CGFloat superViewWidth = 0.0;
 static CGFloat superViewHeight = 0.0;
+UITapGestureRecognizer *tempTapGes;
 
 +(void)load{
     
@@ -220,6 +221,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     if (style.refreshStyle == RefreshClockOnFullScreenStyle) {
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickAction)];
+        tempTapGes = tap;
         style.superView.userInteractionEnabled = YES;
         [style.superView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
         
@@ -381,6 +383,9 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     [self.tipButton removeFromSuperview];
     [self.tipImageView removeFromSuperview];
     [self.coverView removeFromSuperview];
+    if (tempTapGes!=nil) {
+        [self.wyhEmptyStyle.superView removeGestureRecognizer:tempTapGes];
+    }
 }
 
 #pragma mark - setter and getter
