@@ -40,10 +40,12 @@
 #pragma mark - block
 
 -(void)setTipHandler:(void (^)())tipHandler{
-    objc_setAssociatedObject(self, &wyh_blockKey, tipHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//    objc_setAssociatedObject(self, &wyh_blockKey, tipHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    self.view.tipHandler = tipHandler;
 }
 -(void (^)())tipHandler{
-    return objc_getAssociatedObject(self, &wyh_blockKey);
+//    return objc_getAssociatedObject(self, &wyh_blockKey);
+    return self.view.tipHandler;
 }
 
 #pragma mark - wyhStyle
