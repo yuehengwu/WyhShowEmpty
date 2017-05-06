@@ -129,16 +129,22 @@ UITapGestureRecognizer *tempTapGes;
  */
 -(void)wyh_showWithStyle:(WyhEmptyStyle *)style{
     
-    if (!style.superView) style.superView = self;
-    
-    self.isShowed = @"1";
-    
-    self.wyhEmptyStyle = style;
-    
-    [self setupCoverViewPostionWithStyle:style];
-    
-    [self setupSubViewsPositionWithStyle:style];
-    
+    if (style.dataSourceCount == 0) {
+        
+        if (!style.superView) style.superView = self;
+        
+        self.isShowed = @"1";
+        
+        self.wyhEmptyStyle = style;
+        
+        [self setupCoverViewPostionWithStyle:style];
+        
+        [self setupSubViewsPositionWithStyle:style];
+        
+    }else{
+        
+        [self removeSubViews];
+    }
 }
 
 /**
