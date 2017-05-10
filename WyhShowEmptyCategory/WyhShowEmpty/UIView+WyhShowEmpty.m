@@ -131,6 +131,8 @@ UITapGestureRecognizer *tempTapGes;
     
     if (style.dataSourceCount == 0) {
         
+        [self removeSubViews];
+        
         if (!style.superView) style.superView = self;
         
         self.isShowed = @"1";
