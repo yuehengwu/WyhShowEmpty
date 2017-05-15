@@ -190,6 +190,7 @@ UITapGestureRecognizer *tempTapGes;
     
     UIView *coverView = [[UIView alloc]init];
     coverView.frame = CGRectMake(coverX, coverY, superViewWidth, superViewHeight);
+    coverView.userInteractionEnabled = NO;
     coverView.backgroundColor = [UIColor clearColor];
     self.coverView = coverView;
     [self.wyhEmptyStyle.superView addSubview:self.coverView];
