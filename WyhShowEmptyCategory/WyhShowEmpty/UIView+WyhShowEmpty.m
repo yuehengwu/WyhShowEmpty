@@ -214,6 +214,13 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
         [self setupTipLabelWithStyle:style];
         
+        if (self.tipHandler != nil) {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickAction)];
+            tempTapGes = tap;
+            style.superView.userInteractionEnabled = YES;
+            [style.superView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
+        }
+        
         return;
     }
     

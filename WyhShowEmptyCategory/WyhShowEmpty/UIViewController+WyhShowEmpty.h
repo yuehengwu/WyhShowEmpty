@@ -54,6 +54,21 @@
 
 
 /**
+ 新增方法 方便自定义图片带点击事件
+
+ @param msg 提示语
+ @param count 数据源个数
+ @param imageName 图片名称,传nil使用默认图
+ @param imageOragionY 图片的起始位置 默认0.2(百分比)
+ @param handleBlock 点击事件block
+ */
+-(void)wyh_showEmptyMsg:(NSString *)msg
+              dataCount:(NSUInteger)count
+          customImgName:(NSString *)imageName
+          imageOragionY:(CGFloat)imageOragionY
+                Handler:(void(^)())handleBlock;
+
+/**
  根据自定义style展示视图
  
  @param style 自定义样式

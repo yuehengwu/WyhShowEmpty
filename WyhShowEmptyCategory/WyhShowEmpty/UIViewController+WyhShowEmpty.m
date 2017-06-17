@@ -32,10 +32,30 @@
     [self.view wyh_showEmptyMsg:msg dataCount:count customImgName:imageName];
 }
 
+-(void)wyh_showEmptyMsg:(NSString *)msg
+              dataCount:(NSUInteger)count
+          customImgName:(NSString *)imageName
+          imageOragionY:(CGFloat)imageOragionY
+                Handler:(void(^)())handleBlock{
+    
+    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
+    style.refreshStyle = RefreshClockOnFullScreenStyle;
+    style.imageOragionY = imageOragionY;
+    style.tipText = msg;
+    style.imageConfig.imageData = imageName;
+    style.imageConfig.type = ImgTypeName;
+    
+    self.view.tipHandler = handleBlock;
+    [self.view wyh_showWithStyle:style];
+    
+}
+
+
 -(void)wyh_showWithStyle:(WyhEmptyStyle *)style{
     
     [self.view wyh_showWithStyle:style];
 }
+
 
 #pragma mark - block
 
