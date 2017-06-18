@@ -82,10 +82,10 @@ UITapGestureRecognizer *tempTapGes;
     self.wyhEmptyStyle.refreshStyle = hasBtn?RefreshClickOnBtnStyle:RefreshClockOnFullScreenStyle;
     self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
+    self.tipHandler = handleBlock;
     
     [self setupShowedFromDataCount];
     
-    self.tipHandler = handleBlock;
 }
 
 -(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count customImgName:(NSString *)imageName{
@@ -373,6 +373,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     btn.layer.masksToBounds = YES;
     self.tipButton = btn;
     [self.coverView addSubview:btn];
+    self.coverView.userInteractionEnabled = YES;
     [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
     
 }
