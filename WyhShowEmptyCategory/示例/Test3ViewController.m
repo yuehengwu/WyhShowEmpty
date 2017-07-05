@@ -98,9 +98,10 @@
 //    self.wyhEmptyStyle.superView = self.tableView; /* 现已不需要设置 */
     
     //在success回调方法里加入
+    __weak typeof(self) weakSelf = self;
     [self wyh_showEmptyMsg:@"当前暂无内容，点击屏幕刷新" dataCount:self.dataSource.count isHasBtn:NO Handler:^{
-        self.isNoNet = NO;
-        [self loadNetWork];
+        weakSelf.isNoNet = NO;
+        [weakSelf loadNetWork];
     }];
     
     //在fail回调方法里加入

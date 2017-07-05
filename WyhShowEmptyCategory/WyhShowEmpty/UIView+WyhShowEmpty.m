@@ -33,7 +33,7 @@ static CGFloat superViewWidth = 0.0;
 static CGFloat superViewHeight = 0.0;
 UITapGestureRecognizer *tempTapGes;
 
-+(void)load{
++(void)load {
     
 #if DEBUG
     NSLog(@"\n\
@@ -55,7 +55,7 @@ UITapGestureRecognizer *tempTapGes;
     
 }
 
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count{
+-(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count {
     
     if (!self.wyhEmptyStyle) {
         WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
@@ -69,10 +69,10 @@ UITapGestureRecognizer *tempTapGes;
     self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
     
-    [self setupShowedFromDataCount];
+    [self wyh_showWithStyle:self.wyhEmptyStyle];
 }
 
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)())handleBlock{
+-(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)())handleBlock {
     
     if (!self.wyhEmptyStyle) {
         WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
@@ -84,11 +84,11 @@ UITapGestureRecognizer *tempTapGes;
     self.wyhEmptyStyle.dataSourceCount = count;
     self.tipHandler = handleBlock;
     
-    [self setupShowedFromDataCount];
+    [self wyh_showWithStyle:self.wyhEmptyStyle];
     
 }
 
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count customImgName:(NSString *)imageName{
+-(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count customImgName:(NSString *)imageName {
     
     if (!self.wyhEmptyStyle) {
         
@@ -105,21 +105,7 @@ UITapGestureRecognizer *tempTapGes;
     self.wyhEmptyStyle.tipText = msg;
     self.wyhEmptyStyle.dataSourceCount = count;
     
-    [self setupShowedFromDataCount];
-}
-
-/**
- 设置展示视图是否展示中
- */
--(void)setupShowedFromDataCount{
-    
-    if(0==self.wyhEmptyStyle.dataSourceCount){
-        if (YES==[self.isShowed boolValue]) return;
-        [self wyh_showWithStyle:self.wyhEmptyStyle];
-    }else{
-        [self removeSubViews];
-        
-    };
+    [self wyh_showWithStyle:self.wyhEmptyStyle];
 }
 
 /**
@@ -127,9 +113,11 @@ UITapGestureRecognizer *tempTapGes;
  
  @param style 自定义样式
  */
--(void)wyh_showWithStyle:(WyhEmptyStyle *)style{
+-(void)wyh_showWithStyle:(WyhEmptyStyle *)style {
     
     if (style.dataSourceCount == 0) {
+        
+        if (YES==[self.isShowed boolValue]) return;
         
         [self removeSubViews];
         
@@ -203,7 +191,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
  
  @param style 自定义样式
  */
--(void)setupSubViewsPositionWithStyle:(WyhEmptyStyle *)style{
+-(void)setupSubViewsPositionWithStyle:(WyhEmptyStyle *)style {
     
     NSAssert(style, @"style样式不能为空，请检查");
     NSAssert(style.superView, @"必须需要设置父视图，请不要误删style.superView");
@@ -217,8 +205,8 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         if (self.tipHandler != nil) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickAction)];
             tempTapGes = tap;
-            style.superView.userInteractionEnabled = YES;
-            [style.superView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
+            self.coverView.userInteractionEnabled = YES;
+            [self.coverView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
         }
         
         return;
@@ -238,8 +226,8 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(btnClickAction)];
         tempTapGes = tap;
-        style.superView.userInteractionEnabled = YES;
-        [style.superView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
+        self.coverView.userInteractionEnabled = YES;
+        [self.coverView addGestureRecognizer:tap]; /*建议superview自定义，避免用主控器的view直接添加手势*/
         
         [self setupImageViewWithStyle:style];
         
@@ -264,7 +252,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     
 }
 
--(void)setupTipLabelWithStyle:(WyhEmptyStyle *)style{
+-(void)setupTipLabelWithStyle:(WyhEmptyStyle *)style {
     
     UILabel *tipLabel = [[UILabel alloc]init];
     tipLabel.text = !style.tipText ? wyh_defaultTipText : style.tipText;/* defaultTipText 为默认提示语*/
@@ -396,13 +384,14 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         UITableView *tableView = (UITableView *)self.wyhEmptyStyle.superView;
         tableView.separatorStyle = superViewSeparatorStyle;/*恢复分割线样式*/
     }
+    if (tempTapGes!=nil) {
+        [self.coverView removeGestureRecognizer:tempTapGes];
+    }
     [self.tipLabel removeFromSuperview];
     [self.tipButton removeFromSuperview];
     [self.tipImageView removeFromSuperview];
     [self.coverView removeFromSuperview];
-    if (tempTapGes!=nil) {
-        [self.wyhEmptyStyle.superView removeGestureRecognizer:tempTapGes];
-    }
+    
 }
 
 #pragma mark - setter and getter
