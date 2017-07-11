@@ -264,7 +264,6 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     
     NSAssert(superViewHeight>finalSize.height, @"设置的文本太长，超出了父视图的高度！");
     
-    tipLabel.frame = CGRectMake(20, (superViewHeight - finalSize.height)/2, superViewWidth - 40, finalSize.height);
     [self.coverView addSubview:tipLabel];
     self.tipLabel = tipLabel;
     
@@ -278,7 +277,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
     }else{
         
-        tipLabel.center = style.superView.center;
+        tipLabel.frame = CGRectMake(20, (superViewHeight - finalSize.height)/2, superViewWidth - 40, finalSize.height);
     }
     
 }
