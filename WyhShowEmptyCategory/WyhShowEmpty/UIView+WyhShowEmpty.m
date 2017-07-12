@@ -252,17 +252,16 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     
 }
 
--(void)setupTipLabelWithStyle:(WyhEmptyStyle *)style {
+-(void)setupTipLabelWithStyle:(WyhEmptyStyle *)style{
     
     UILabel *tipLabel = [[UILabel alloc]init];
     tipLabel.text = !style.tipText ? wyh_defaultTipText : style.tipText;/* defaultTipText 为默认提示语*/
     tipLabel.textColor = style.tipTextColor;
     tipLabel.numberOfLines = 0;
     tipLabel.textAlignment = NSTextAlignmentCenter;
-    CGSize maxSize = CGSizeMake(superViewWidth - 40, MAXFLOAT);
-    CGSize finalSize = [tipLabel sizeThatFits:maxSize];
-    
-    NSAssert(superViewHeight>finalSize.height, @"设置的文本太长，超出了父视图的高度！");
+    tipLabel.frame = CGRectMake(0, 0, superViewWidth - 40, 0);
+    [tipLabel sizeToFit];
+    NSAssert(superViewHeight>tipLabel.wyh_h, @"设置的文本太长，超出了父视图的高度！");
     
     [self.coverView addSubview:tipLabel];
     self.tipLabel = tipLabel;
@@ -277,9 +276,8 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
     }else{
         
-        tipLabel.frame = CGRectMake(20, (superViewHeight - finalSize.height)/2, superViewWidth - 40, finalSize.height);
+        tipLabel.frame = CGRectMake(20, (superViewHeight - tipLabel.wyh_h)/2, tipLabel.wyh_w, tipLabel.wyh_h);
     }
-    
 }
 
 -(void)setupImageViewWithStyle:(WyhEmptyStyle *)style{
