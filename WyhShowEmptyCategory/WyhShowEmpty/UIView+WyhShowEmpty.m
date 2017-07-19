@@ -276,7 +276,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
     }else{
         
-        tipLabel.frame = CGRectMake(20, (superViewHeight - tipLabel.wyh_h)/2, tipLabel.wyh_w, tipLabel.wyh_h);
+        tipLabel.frame = CGRectMake((superViewWidth - tipLabel.wyh_w)/2, (superViewHeight - tipLabel.wyh_h)/2, tipLabel.wyh_w, tipLabel.wyh_h);
     }
 }
 
