@@ -38,15 +38,7 @@
           imageOragionY:(CGFloat)imageOragionY
                 Handler:(void(^)())handleBlock{
     
-    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
-    style.refreshStyle = RefreshClockOnFullScreenStyle;
-    style.imageOragionY = imageOragionY;
-    style.tipText = msg;
-    style.imageConfig.imageData = imageName;
-    style.imageConfig.type = ImgTypeName;
-    
-    self.view.tipHandler = handleBlock;
-    [self.view wyh_showWithStyle:style];
+    [self.view wyh_showEmptyMsg:msg dataCount:count customImgName:imageName imageOragionY:imageOragionY Handler:handleBlock];
     
 }
 

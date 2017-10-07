@@ -108,6 +108,26 @@ UITapGestureRecognizer *tempTapGes;
     [self wyh_showWithStyle:self.wyhEmptyStyle];
 }
 
+-(void)wyh_showEmptyMsg:(NSString *)msg
+              dataCount:(NSUInteger)count
+          customImgName:(NSString *)imageName
+          imageOragionY:(CGFloat)imageOragionY
+                Handler:(void(^)())handleBlock{
+    
+    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
+    style.refreshStyle = RefreshClockOnFullScreenStyle;
+    style.imageOragionY = imageOragionY;
+    style.tipText = msg;
+    style.imageConfig.imageData = imageName?:style.imageConfig.imageData;
+    style.imageConfig.type = ImgTypeName;
+    style.dataSourceCount = count;
+    self.wyhEmptyStyle = style;
+    self.tipHandler = handleBlock;
+    
+    [self wyh_showWithStyle:style];
+    
+}
+
 /**
  自定义展示方法
  

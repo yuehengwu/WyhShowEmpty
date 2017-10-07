@@ -55,6 +55,20 @@
 
 
 /**
+ 新增方法
+
+ @param msg 提示语
+ @param count 数据源个数
+ @param imageName 图片名字
+ @param handleBlock 回调的block
+ */
+-(void)wyh_showEmptyMsg:(NSString *)msg
+              dataCount:(NSUInteger)count
+          customImgName:(NSString *)imageName
+          imageOragionY:(CGFloat)imageOragionY
+                Handler:(void(^)())handleBlock;
+
+/**
  根据自定义style展示视图
  
  @param style 自定义样式
