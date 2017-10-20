@@ -36,9 +36,10 @@
               dataCount:(NSUInteger)count
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
+               isHasBtn:(BOOL)hasBtn
                 Handler:(void(^)())handleBlock{
     
-    [self.view wyh_showEmptyMsg:msg dataCount:count customImgName:imageName imageOragionY:imageOragionY Handler:handleBlock];
+    [self.view wyh_showEmptyMsg:msg dataCount:count customImgName:imageName imageOragionY:imageOragionY isHasBtn:hasBtn Handler:handleBlock];
     
 }
 
@@ -52,21 +53,18 @@
 #pragma mark - block
 
 -(void)setTipHandler:(void (^)())tipHandler{
-//    objc_setAssociatedObject(self, &wyh_blockKey, tipHandler, OBJC_ASSOCIATION_COPY_NONATOMIC);
     self.view.tipHandler = tipHandler;
 }
 -(void (^)())tipHandler{
-//    return objc_getAssociatedObject(self, &wyh_blockKey);
     return self.view.tipHandler;
 }
 
 #pragma mark - wyhStyle
 -(void)setWyhEmptyStyle:(WyhEmptyStyle *)wyhEmptyStyle{
-    objc_setAssociatedObject(self, &wyh_styleKey, wyhEmptyStyle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.view.wyhEmptyStyle = wyhEmptyStyle;
 }
 -(WyhEmptyStyle *)wyhEmptyStyle{
-    
-    return objc_getAssociatedObject(self, &wyh_styleKey);
+    return self.view.wyhEmptyStyle;
 }
 
 @end

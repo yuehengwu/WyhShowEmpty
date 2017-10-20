@@ -31,7 +31,7 @@
 @implementation UIView (WyhShowEmpty)
 static CGFloat superViewWidth = 0.0;
 static CGFloat superViewHeight = 0.0;
-UITapGestureRecognizer *tempTapGes;
+static UITapGestureRecognizer *tempTapGes;
 
 +(void)load {
     
@@ -112,20 +112,28 @@ UITapGestureRecognizer *tempTapGes;
               dataCount:(NSUInteger)count
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
+               isHasBtn:(BOOL)hasBtn
                 Handler:(void(^)())handleBlock{
     
-    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
-    style.refreshStyle = RefreshClockOnFullScreenStyle;
-    style.imageOragionY = imageOragionY;
-    style.tipText = msg;
-    style.imageConfig.imageData = imageName?:style.imageConfig.imageData;
-    style.imageConfig.type = ImgTypeName;
-    style.dataSourceCount = count;
-    self.wyhEmptyStyle = style;
-    self.tipHandler = handleBlock;
+    if (!self.wyhEmptyStyle) {
+        WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
+        wyhStyle.superView = self;
+        self.wyhEmptyStyle = wyhStyle;
+    }
+    self.wyhEmptyStyle.refreshStyle = RefreshClockOnFullScreenStyle;
+    self.wyhEmptyStyle.imageOragionY = imageOragionY;
+    self.wyhEmptyStyle.tipText = msg;
+    self.wyhEmptyStyle.imageConfig.imageData = imageName?:self.wyhEmptyStyle.imageConfig.imageData;
+    self.wyhEmptyStyle.imageConfig.type = ImgTypeName;
+    self.wyhEmptyStyle.dataSourceCount = count;
     
-    [self wyh_showWithStyle:style];
-    
+    if (!handleBlock) {
+        self.wyhEmptyStyle.refreshStyle = noRefreshStyle;
+    }else {
+        self.tipHandler = handleBlock;
+        self.wyhEmptyStyle.refreshStyle = hasBtn?RefreshClickOnBtnStyle:RefreshClockOnFullScreenStyle;
+    }
+    [self wyh_showWithStyle:self.wyhEmptyStyle];
 }
 
 /**
@@ -277,6 +285,7 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     UILabel *tipLabel = [[UILabel alloc]init];
     tipLabel.text = !style.tipText ? wyh_defaultTipText : style.tipText;/* defaultTipText 为默认提示语*/
     tipLabel.textColor = style.tipTextColor;
+    tipLabel.font = style.tipFont;
     tipLabel.numberOfLines = 0;
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.frame = CGRectMake(0, 0, superViewWidth - 40, 0);
@@ -364,14 +373,18 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:style.btnTipText forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    btn.titleLabel.font = style.btnFont?:[UIFont systemFontOfSize:15.f];
     if (style.btnImage) [btn setBackgroundImage:style.btnImage forState:(UIControlStateNormal)];
-    [btn sizeToFit];
     [btn setTitleColor:style.btnTitleColor forState:UIControlStateNormal];
     btn.titleLabel.textColor = [UIColor lightGrayColor];
-    CGFloat btnX = (superViewWidth - style.btnWidth) * .5f;
+    btn.frame = CGRectZero;
+    [btn sizeToFit];
+    btn.wyh_w = btn.wyh_w>style.btnWidth?(btn.wyh_w+10):style.btnWidth;
+    btn.wyh_h = btn.wyh_h>style.btnHeight?btn.wyh_h:style.btnHeight;
+    CGFloat btnX = (superViewWidth - btn.wyh_w) * .5f;
     CGFloat btnY = CGRectGetMaxY(self.tipLabel.frame) + 20;/*20是一个神奇数字*/
-    btn.frame = CGRectMake(btnX, btnY, style.btnWidth, style.btnHeight);
+    btn.wyh_x = btnX;
+    btn.wyh_y = btnY;
     btn.layer.borderColor = style.btnLayerBorderColor.CGColor;
     btn.layer.borderWidth = style.btnLayerborderWidth;
     btn.layer.cornerRadius = style.btnLayerCornerRadius;

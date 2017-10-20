@@ -66,6 +66,7 @@
               dataCount:(NSUInteger)count
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
+               isHasBtn:(BOOL)hasBtn
                 Handler:(void(^)())handleBlock;
 
 /**

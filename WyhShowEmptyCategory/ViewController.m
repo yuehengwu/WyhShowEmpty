@@ -31,17 +31,23 @@
     // Do any additional setup after loading the view, typically from a nib.
 
     self.title = @"WyhShowEmpty Demo";
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    [self dataSource];
+    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
+    style.btnTipText = @"Open";
+    style.tipFont = [UIFont systemFontOfSize:25.f];
+    style.btnFont = [UIFont systemFontOfSize:17.f];
+    self.wyhEmptyStyle = style;
     
-    [self tableView];
-    
+    __weak typeof(self) weakSelf = self;
+    [self wyh_showEmptyMsg:@"WyhShowEmptyDemo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:YES Handler:^{
+        [weakSelf.view addSubview:weakSelf.tableView];
+        [weakSelf.tableView reloadData];
+    }];
 }
 
 -(NSMutableArray *)dataSource{
-    
     if (!_dataSource) {
-        
         _dataSource = @[@"纯文本展示",
                         @"带图片带重试按钮展示",
                         @"缩小tableView的无内容展示",
@@ -51,20 +57,16 @@
 }
 
 -(UITableView *)tableView{
-    
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenSize.width, ScreenSize.height) style:(UITableViewStyleGrouped)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        [self.view addSubview:_tableView];
-        
     }
     return _tableView;
-    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _dataSource.count;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

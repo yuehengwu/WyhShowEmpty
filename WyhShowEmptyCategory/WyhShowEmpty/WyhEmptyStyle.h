@@ -82,6 +82,11 @@ typedef NS_ENUM(NSInteger, imageType)
 @property (nonatomic, strong) NSString *tipText;
 
 /**
+ 提示语的字体大小 默认标准字体17号
+ */
+@property (nonatomic, strong) UIFont *tipFont;
+
+/**
  点击重试的按钮 (即将开放)
  */
 //@property (nonatomic, strong) UIButton *button;
@@ -110,6 +115,11 @@ typedef NS_ENUM(NSInteger, imageType)
  btn的图片
  */
 @property (nonatomic, strong) UIImage *btnImage;
+
+/**
+ btn的字体大小 默认标准字体15号
+ */
+@property (nonatomic, strong) UIFont *btnFont;
 
 /**
  按钮的宽度

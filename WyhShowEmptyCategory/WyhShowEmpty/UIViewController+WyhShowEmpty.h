@@ -60,12 +60,14 @@
  @param count 数据源个数
  @param imageName 图片名称,传nil使用默认图
  @param imageOragionY 图片的起始位置 默认0.2(百分比)
+ @param hasBtn 是否含有点击按钮
  @param handleBlock 点击事件block
  */
 -(void)wyh_showEmptyMsg:(NSString *)msg
               dataCount:(NSUInteger)count
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
+               isHasBtn:(BOOL)hasBtn
                 Handler:(void(^)())handleBlock;
 
 /**

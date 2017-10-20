@@ -54,6 +54,7 @@
         self.imageConfig.type = ImgTypeLocalUrl;
         self.imageConfig.imageData = @"WyhEmpty.bundle/nonetwork";
         self.btnTipText = @"重试";
+        self.btnFont = [UIFont systemFontOfSize:15];
         self.btnImage = nil;
         self.btnTitleColor = [UIColor redColor];
         self.btnLayerBorderColor = WYHColorFromRGB(0xf4f5f6);
@@ -62,6 +63,7 @@
         self.btnWidth = 100;
         self.btnHeight = 35;
         self.tipTextColor = [UIColor lightGrayColor];
+        self.tipFont = [UIFont systemFontOfSize:17.0f];
         self.imageOragionY = 0.2f;/*默认起点位置在屏幕高的20%位置上*/
         
     }

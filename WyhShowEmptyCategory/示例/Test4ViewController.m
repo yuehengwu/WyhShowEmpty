@@ -40,7 +40,7 @@
     style.btnLayerBorderColor = [UIColor redColor];
     self.wyhEmptyStyle = style;
     
-    [self wyh_showWithStyle:style];
+    [self wyh_showWithStyle:self.wyhEmptyStyle];
 }
 
 - (void)didReceiveMemoryWarning {
