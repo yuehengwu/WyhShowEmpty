@@ -12,13 +12,15 @@
 
 ## 代码示例: 
 
-```
 ### 示例1：一行代码搞定,若dataSource数组个数为0，则显示
 
+```objc
     [self wyh_showEmptyMsg:@"暂无内容" dataCount:self.dataSource];
+```
 
 ### 示例2：同样可以自定义，丰富的API
-    
+
+```objc
     WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
     style.tipText = @"转了一圈又一圈";
     style.tipTextColor = [UIColor brownColor];
@@ -33,9 +35,11 @@
 
     //自定义后还是一行代码
     [self wyh_showWithStyle:style];
-
+```
 
 ### 示例3：模拟在网络请求中的应用，以tableView为例
+
+```objc
 -(void)loadNetWork{
 
     [[AFHTTPSessionManager manager] POST:url parameters:body progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -57,17 +61,10 @@
 }
 ```
 
-
 ## 具体原理请看源码，如果你希望联系到我:
 
-####   简书地址:http://www.jianshu.com/u/b76e3853ae0b
-#### GitHub地址:https://github.com/XiaoWuTongZhi/WyhShowEmpty
-####    qq邮箱: 609232770@qq.com 
+####   简书地址: http://www.jianshu.com/u/b76e3853ae0b
+####   GitHub   : https://github.com/XiaoWuTongZhi/WyhShowEmpty
+####   qq邮箱   : 609232770@qq.com
 
-### 写在最后:本人目前已离职，在北京找工作，希望公司有需要的朋友们可以推荐一下面试
-
-#### 联系我的邮箱：
-wyh609223@163.com
-#### 联系我的电话：
-13059015830 (非诚勿扰，谢谢您)
 
