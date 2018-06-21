@@ -201,6 +201,11 @@ static UITapGestureRecognizer *tempTapGes;
             coverY = -64.0; /* 因为当某些导航栏透明效果影响,tableView的wrapperView起点会偏移64 */
         }
     }
+    
+    // Fix masonry-autolayout
+    [style.superView setNeedsLayout];
+    [style.superView layoutIfNeeded];
+    
     superViewWidth = style.superView.wyh_w;
     superViewHeight = style.superView.wyh_h;
     
