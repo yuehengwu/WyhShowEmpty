@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, imageType)
 /**
  控件的父视图，主要是为了用户自定义superView 默认为控制器的view
  */
-@property (nonatomic, strong) UIView *superView;
+@property (nonatomic, weak) UIView *superView;
 
 
 
