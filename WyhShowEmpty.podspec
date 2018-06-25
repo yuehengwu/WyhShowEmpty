@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WyhShowEmpty"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "Quick to show empty-view in anywhere."
 
   # This description is used to generate tags and improve search results.
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/XiaoWuTongZhi/WyhShowEmpty.git", :tag => "v1.0.0" }
+  s.source       = { :git => "https://github.com/XiaoWuTongZhi/WyhShowEmpty.git", :tag => "v1.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
