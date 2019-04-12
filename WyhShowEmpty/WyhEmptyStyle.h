@@ -55,6 +55,10 @@ typedef NS_ENUM(NSInteger, imageType)
 
 @interface WyhEmptyStyle : NSObject
 
+/**
+ btn点击事件
+ */
+@property (nonatomic, copy) void(^btnClickClosure)();
 
 /**
  是否只显示文字，注意若打开后图片和按钮的设置将无效 默认NO
@@ -79,7 +83,7 @@ typedef NS_ENUM(NSInteger, imageType)
 /**
  提示语
  */
-@property (nonatomic, strong) NSString *tipText;
+@property (nonatomic, copy) NSString *tipText;
 
 /**
  提示语的字体大小 默认标准字体17号
@@ -87,9 +91,24 @@ typedef NS_ENUM(NSInteger, imageType)
 @property (nonatomic, strong) UIFont *tipFont;
 
 /**
- 点击重试的按钮 (即将开放)
+ 提示文字的颜色
  */
-//@property (nonatomic, strong) UIButton *button;
+@property (nonatomic, strong) UIColor *tipTextColor;
+
+/**
+ 描述
+ */
+@property (nonatomic, copy) NSString *descText;
+
+/**
+ 描述字体
+ */
+@property (nonatomic, strong) UIFont *descFont;
+
+/**
+ 描述字体颜色
+ */
+@property (nonatomic, strong) UIColor *descTextColor;
 
 /**
  图片允许的最大宽度
@@ -150,11 +169,6 @@ typedef NS_ENUM(NSInteger, imageType)
  按钮边框颜色
  */
 @property (nonatomic, strong) UIColor *btnLayerBorderColor;
-
-/**
- 提示文字的颜色
- */
-@property (nonatomic, strong) UIColor *tipTextColor;
 
 /**
  控件的父视图，主要是为了用户自定义superView 默认为控制器的view

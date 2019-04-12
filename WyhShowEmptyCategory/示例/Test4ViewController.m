@@ -33,14 +33,14 @@
     style.tipTextColor = [UIColor brownColor];
     style.btnTipText = @"消失";
     style.imageConfig.type = GifImgLocalUrl;
+    style.imageConfig.imageData = @"WyhEmpty.bundle/转圈圈.gif";
     style.refreshStyle = RefreshClickOnBtnStyle;
     style.btnWidth = 100;
     style.btnHeight = 100;
     style.btnLayerCornerRadius = 50;
     style.btnLayerBorderColor = [UIColor redColor];
-    self.wyhEmptyStyle = style;
     
-    [self wyh_showWithStyle:self.wyhEmptyStyle];
+    [self.view wyh_showWithStyle:style];
 }
 
 - (void)didReceiveMemoryWarning {

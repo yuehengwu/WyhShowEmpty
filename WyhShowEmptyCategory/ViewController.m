@@ -32,28 +32,26 @@
 
     self.title = @"WyhShowEmpty Demo";
     self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.tableView];
     
-    WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
-    style.btnTipText = @"Open";
-    style.tipFont = [UIFont systemFontOfSize:25.f];
-    style.btnFont = [UIFont systemFontOfSize:17.f];
-    self.wyhEmptyStyle = style;
+    
+    [self performSelector:@selector(initialize) withObject:nil afterDelay:0.1f];
     
     __weak typeof(self) weakSelf = self;
-    [self wyh_showEmptyMsg:@"WyhShowEmptyDemo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:YES Handler:^{
+    
+    [self.tableView wyh_showEmptyMsg:@"WyhShowEmptyDemo" desc:@"点击屏幕进入demo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:NO Handler:^{
         [weakSelf.view addSubview:weakSelf.tableView];
         [weakSelf.tableView reloadData];
     }];
 }
 
--(NSMutableArray *)dataSource{
-    if (!_dataSource) {
-        _dataSource = @[@"纯文本展示",
-                        @"带图片带重试按钮展示",
-                        @"缩小tableView的无内容展示",
-                        @"自定义style，带动图展示"].mutableCopy;
-    }
-    return _dataSource;
+- (void)initialize {
+    
+    _dataSource = @[@"纯文本展示",
+                    @"带图片带重试按钮展示",
+                    @"缩小tableView的无内容展示",
+                    @"自定义style，带动图展示"].mutableCopy;
+    
 }
 
 -(UITableView *)tableView{

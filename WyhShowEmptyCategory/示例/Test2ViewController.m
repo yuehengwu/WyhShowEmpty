@@ -67,7 +67,7 @@
     
 //    self.wyhEmptyStyle.superView = self.table;/* 现已不需要设置*/
     __weak typeof(self) weakself = self;
-    [self wyh_showEmptyMsg:@"网络不给力，点击刷新" dataCount:self.dataSource.count isHasBtn:YES Handler:^{
+    [self.table wyh_showEmptyMsg:@"网络不给力" desc:@"点击刷新" dataCount:self.dataSource.count isHasBtn:YES Handler:^{
         weakself.isNoNet = NO;
         [weakself loadNetWork];
     }];

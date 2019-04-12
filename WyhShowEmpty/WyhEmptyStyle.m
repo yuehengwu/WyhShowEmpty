@@ -12,15 +12,11 @@
 @implementation imageExtConfig
 
 
-
--(void)setType:(imageType)type{
-    if (_type != type) {
-        _type = type;
-        if (type == GifImgLocalUrl) { /* 注意:当自定义gif图时,若要自定imageData请再setType之后设置 */
-            self.imageData = @"WyhEmpty.bundle/转圈圈.gif";
-            self.gifArray = [self wyh_imagesWithGif:self.imageData].mutableCopy;
-        }
+- (NSMutableArray *)gifArray {
+    if (_imageData && _type == GifImgLocalUrl) {
+        _gifArray = [self wyh_imagesWithGif:_imageData].mutableCopy;
     }
+    return _gifArray;
 }
 
 -(NSArray *)wyh_imagesWithGif:(NSString *)gifNameInBoundle {
@@ -47,25 +43,30 @@
 -(instancetype)init{
     
     if (self = [super init]) {
-        self.isOnlyText = NO;
-        self.refreshStyle = noRefreshStyle;
-        self.imageConfig = [[imageExtConfig alloc]init];
-        self.imageMaxWidth = 300;
-        self.imageConfig.type = ImgTypeLocalUrl;
-        self.imageConfig.imageData = @"WyhEmpty.bundle/nonetwork";
-        self.btnTipText = @"重试";
-        self.btnFont = [UIFont systemFontOfSize:15];
-        self.btnImage = nil;
-        self.btnTitleColor = [UIColor redColor];
-        self.btnLayerBorderColor = WYHColorFromRGB(0xf4f5f6);
-        self.btnLayerCornerRadius = 2;
-        self.btnLayerborderWidth = 1;
-        self.btnWidth = 100;
-        self.btnHeight = 35;
-        self.tipTextColor = [UIColor lightGrayColor];
-        self.tipFont = [UIFont systemFontOfSize:17.0f];
-        self.imageOragionY = 0.2f;/*默认起点位置在屏幕高的20%位置上*/
+        _isOnlyText = NO;
+        _refreshStyle = noRefreshStyle;
+        _imageConfig = [[imageExtConfig alloc]init];
+        _imageMaxWidth = 300;
+        _imageConfig.type = ImgTypeLocalUrl;
+        _imageConfig.imageData = @"WyhEmpty.bundle/nonetwork";
+        _btnTipText = @"重试";
+        _btnFont = [UIFont systemFontOfSize:15];
+        _btnImage = nil;
+        _btnTitleColor = [UIColor redColor];
+        _btnLayerBorderColor = WYHColorFromRGB(0xf4f5f6);
+        _btnLayerCornerRadius = 2;
+        _btnLayerborderWidth = 1;
+        _btnWidth = 100;
+        _btnHeight = 35;
         
+        _tipTextColor = [UIColor grayColor];
+        _tipFont = [UIFont systemFontOfSize:17.0f];
+        
+        _descTextColor = [UIColor lightGrayColor];
+        _descFont = [UIFont systemFontOfSize:15.f];
+        
+        _imageOragionY = 0.2f;/*默认起点位置在屏幕高的20%位置上*/
+        _btnClickClosure = nil;
     }
     return self;
 }

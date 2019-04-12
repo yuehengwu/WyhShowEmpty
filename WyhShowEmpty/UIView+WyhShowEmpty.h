@@ -13,12 +13,6 @@
 @interface UIView (WyhShowEmpty)
 
 /**
- 若自定义style，有点击方法时，给外界做处理,若没自定义建议使用
- wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count Handler:(void(^)())handleBlock
- */
-@property (nonatomic, copy) void(^tipHandler)();
-
-/**
  自定义style
  */
 @property (nonatomic, strong) WyhEmptyStyle *wyhEmptyStyle;
@@ -30,7 +24,7 @@
  @param msg 提示语
  @param count 数据源个数
  */
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count;
+-(void)wyh_showEmptyMsg:(NSString *)msg desc:(NSString *)desc dataCount:(NSUInteger)count;
 
 
 
@@ -42,7 +36,7 @@
  @param hasBtn 是否含有Btn 带btn->YES 点击屏幕->NO
  @param handleBlock 刷新方法回调
  */
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)())handleBlock;
+-(void)wyh_showEmptyMsg:(NSString *)msg desc:(NSString *)desc dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)())handleBlock;
 
 /**
  根据数据源个数展示自定义图片的提示视图
@@ -51,7 +45,7 @@
  @param count 数据源个数
  @param imageName 图片名称,传nil使用默认图
  */
--(void)wyh_showEmptyMsg:(NSString *)msg dataCount:(NSUInteger)count customImgName:(NSString *)imageName;
+-(void)wyh_showEmptyMsg:(NSString *)msg desc:(NSString *)desc dataCount:(NSUInteger)count customImgName:(NSString *)imageName;
 
 
 /**
@@ -63,6 +57,7 @@
  @param handleBlock 回调的block
  */
 -(void)wyh_showEmptyMsg:(NSString *)msg
+                   desc:(NSString *)desc
               dataCount:(NSUInteger)count
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
