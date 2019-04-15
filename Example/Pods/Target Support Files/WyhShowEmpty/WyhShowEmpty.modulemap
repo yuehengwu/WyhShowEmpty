@@ -1,0 +1,6 @@
+framework module WyhShowEmpty {
+  umbrella header "WyhShowEmpty-umbrella.h"
+
+  export *
+  module * { export * }
+}

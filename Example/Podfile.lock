@@ -1,0 +1,16 @@
+PODS:
+  - WyhShowEmpty (1.0.3)
+
+DEPENDENCIES:
+  - WyhShowEmpty (from `../`)
+
+EXTERNAL SOURCES:
+  WyhShowEmpty:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  WyhShowEmpty: bed5b92f8ab07da74513d3ceede6f54858238ab0
+
+PODFILE CHECKSUM: f34d7c3f049046025d9424ccb0ab2c486ac8f052
+
+COCOAPODS: 1.6.1

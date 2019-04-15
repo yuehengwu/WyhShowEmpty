@@ -1,0 +1,6 @@
+framework module Pods_WyhShowEmpty_Example {
+  umbrella header "Pods-WyhShowEmpty_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

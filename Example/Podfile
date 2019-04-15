@@ -1,0 +1,11 @@
+platform :ios, '8.0'
+
+target 'WyhShowEmpty_Example' do
+  pod 'WyhShowEmpty', :path => '../'
+
+  target 'WyhShowEmpty_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
