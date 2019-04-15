@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WyhShowEmpty"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Quick to show empty-view in anywhere."
 
   # This description is used to generate tags and improve search results.
@@ -91,6 +91,8 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "WyhShowEmpty", "WyhShowEmpty/*.{h,m}"
+
+  s.resources = 'WyhShowEmpty/WyhEmpty.bundle'
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
