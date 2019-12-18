@@ -7,10 +7,13 @@
 //
 
 #import "UIView+WyhShowEmpty.h"
-#import "WyhEmptyStyle.h"
+
+#import <Masonry.h>
 #import <objc/runtime.h>
-#import "UIView+WyhExtension.h"
+
+#import "WyhEmptyStyle.h"
 #import "WyhShowEmptyConst.h"
+
 
 @interface UIView ()
 
@@ -31,8 +34,7 @@
 @end
 
 @implementation UIView (WyhShowEmpty)
-static CGFloat superViewWidth = 0.0;
-static CGFloat superViewHeight = 0.0;
+
 static UITapGestureRecognizer *tempTapGes;
 
 +(void)load {
@@ -55,7 +57,7 @@ static UITapGestureRecognizer *tempTapGes;
     [self wyh_showWithStyle:wyhStyle];
 }
 
--(void)wyh_showEmptyMsg:(NSString *)msg desc:(NSString *)desc dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)())handleBlock {
+-(void)wyh_showEmptyMsg:(NSString *)msg desc:(NSString *)desc dataCount:(NSUInteger)count isHasBtn:(BOOL)hasBtn Handler:(void(^)(void))handleBlock {
     
     
     WyhEmptyStyle *wyhStyle = [[WyhEmptyStyle alloc]init];
@@ -94,7 +96,7 @@ static UITapGestureRecognizer *tempTapGes;
           customImgName:(NSString *)imageName
           imageOragionY:(CGFloat)imageOragionY
                isHasBtn:(BOOL)hasBtn
-                Handler:(void(^)())handleBlock{
+                Handler:(void(^)(void))handleBlock{
     
     WyhEmptyStyle *style = [[WyhEmptyStyle alloc]init];
     style.superView = self;
@@ -154,47 +156,51 @@ static UITapGestureRecognizer *tempTapGes;
  */
 -(void)setupCoverViewPostionWithStyle:(WyhEmptyStyle *)style{
     
-    CGFloat coverX = 0.0;
-    CGFloat coverY = 0.0;
-    __block UITableView *coverTable;
-    /** 为了更方便用户调用,默认直接将coverView加在tableView上,若有不同需求可自行在此修改*/
-    if (![style.superView isKindOfClass:[UITableView class]]) {
-        [style.superView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[UITableView class]]) {
-                coverTable = (UITableView *)obj;
-                style.superView = coverTable;
-                *stop = YES;
-            }
-        }];
-    }
+    //    CGFloat coverX = 0.0;
+    //    CGFloat coverY = 0.0;
+    //    __block UITableView *coverTable;
+    //    /** 为了更方便用户调用,默认直接将coverView加在tableView上,若有不同需求可自行在此修改*/
+    //    if (![style.superView isKindOfClass:[UITableView class]]) {
+    //        [style.superView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    //            if ([obj isKindOfClass:[UITableView class]]) {
+    //                coverTable = (UITableView *)obj;
+    //                style.superView = coverTable;
+    //                *stop = YES;
+    //            }
+    //        }];
+    //    }
+    //    
+    //
+    //    if ([style.superView isKindOfClass:[UITableView class]]) {
+    //        __block UIView *tableViewWrapperView;
+    //        
+    //        [((UITableView *)style.superView).subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    //            if ([obj isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]) {
+    //                tableViewWrapperView = obj;
+    //                *stop = YES;
+    //            }
+    //        }];
+    //        if (tableViewWrapperView) {
+    //            style.superView = tableViewWrapperView;
+    //        }
+    ////        if (tableViewWrapperView.wyh_y != style.superView.wyh_y) {
+    ////            coverY = -64.0; // 因为当某些导航栏透明效果影响,tableView的wrapperView起点会偏移64
+    ////        }
+    //    }
     
-    if ([style.superView isKindOfClass:[UITableView class]]) {
-        __block UIView *tableViewWrapperView;
-        
-        [((UITableView *)style.superView).subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"UITableViewWrapperView")]) {
-                tableViewWrapperView = obj;
-                *stop = YES;
-            }
-        }];
-        //        style.superView = tableViewWrapperView;
-        
-        if (tableViewWrapperView.wyh_y != style.superView.wyh_y) {
-            coverY = -64.0; /* 因为当某些导航栏透明效果影响,tableView的wrapperView起点会偏移64 */
-        }
-    }
-    
-//    [style.superView setNeedsLayout];
-//    [style.superView layoutIfNeeded];
-    superViewWidth = style.superView.wyh_w;
-    superViewHeight = style.superView.wyh_h;
-    
-    UIView *coverView = [[UIView alloc]init];
-    coverView.frame = CGRectMake(coverX, coverY, superViewWidth, superViewHeight);
-    coverView.userInteractionEnabled = NO;
-    coverView.backgroundColor = [UIColor clearColor];
-    self.coverView = coverView;
-    [self.wyhEmptyStyle.superView addSubview:self.coverView];
+    self.coverView = ({
+        UIView *coverView = [[UIView alloc]init];
+        coverView.userInteractionEnabled = NO;
+        coverView.backgroundColor = [UIColor clearColor];
+        coverView;
+    });
+    [style.superView addSubview:self.coverView];
+    [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(style.superView.mas_top);
+        make.left.equalTo(style.superView.mas_left);
+        make.right.equalTo(style.superView.mas_right);
+        make.bottom.equalTo(style.superView.mas_bottom);
+    }];
 }
 
 static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const修饰*/
@@ -277,9 +283,6 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     tipLabel.font = style.tipFont;
     tipLabel.numberOfLines = 0;
     tipLabel.textAlignment = NSTextAlignmentCenter;
-    tipLabel.frame = CGRectMake(0, 0, superViewWidth - 80, 0);
-    [tipLabel sizeToFit];
-    NSAssert(superViewHeight>tipLabel.wyh_h, @"设置的标题文本太长，超出了父视图的高度！");
     
     [self.coverView addSubview:tipLabel];
     self.tipLabel = tipLabel;
@@ -288,13 +291,20 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         
         NSAssert(self.tipImageView, @"setupTiplabel必须在setupImage之后，否则获取不到image的frame");
         
-        CGFloat tipX = (superViewWidth - tipLabel.wyh_w) * 0.5;
-        CGFloat tipY = self.tipImageView.wyh_bottom + 10;
-        tipLabel.frame = CGRectMake(tipX, tipY, tipLabel.wyh_w, tipLabel.wyh_h);
+        [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.tipImageView.mas_bottom).offset(10.f);
+            make.left.greaterThanOrEqualTo(self.coverView.mas_left).offset(20.f);
+            make.right.lessThanOrEqualTo(self.coverView.mas_right).offset(-20.f);
+            make.centerX.equalTo(self.coverView.mas_centerX);
+        }];
         
     }else{
-        
-        tipLabel.frame = CGRectMake((superViewWidth - tipLabel.wyh_w)/2, (superViewHeight - tipLabel.wyh_h)/2, tipLabel.wyh_w, tipLabel.wyh_h);
+        [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.greaterThanOrEqualTo(self.coverView.mas_left).offset(20.f);
+            make.right.lessThanOrEqualTo(self.coverView.mas_right).offset(-20.f);
+            make.centerY.equalTo(self.coverView.mas_centerY);
+            make.centerX.equalTo(self.coverView.mas_centerX);
+        }];
     }
 }
 
@@ -306,17 +316,14 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     descLabel.font = style.descFont;
     descLabel.numberOfLines = 0;
     descLabel.textAlignment = NSTextAlignmentCenter;
-    descLabel.frame = CGRectMake(0, 0, superViewWidth - 40, 0);
-    [descLabel sizeToFit];
-    NSAssert(superViewHeight>descLabel.wyh_h, @"设置的描述文本太长，超出了父视图的高度！");
-    
-    [self.coverView addSubview:descLabel];
     self.descLabel = descLabel;
-    
-
-    CGFloat descX = (superViewWidth - descLabel.wyh_w) * 0.5;
-    CGFloat descY = self.tipLabel.wyh_bottom + 10;
-    descLabel.frame = CGRectMake(descX, descY, descLabel.wyh_w, descLabel.wyh_h);
+    [self.coverView addSubview:descLabel];
+    [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.tipLabel.mas_bottom).offset(10);
+        make.left.greaterThanOrEqualTo(self.coverView.mas_left).offset(10.f);
+        make.right.lessThanOrEqualTo(self.coverView.mas_right).offset(-10.f);
+        make.centerX.equalTo(self.coverView.mas_centerX);
+    }];
 }
 
 -(void)setupImageViewWithStyle:(WyhEmptyStyle *)style{
@@ -356,21 +363,23 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
         default:
             break;
     }
+    [self.coverView setNeedsLayout];
+    [self.coverView layoutIfNeeded];
+    
     [imgView sizeToFit];
-    if (style.imageSize.width != 0) {
-        NSAssert(style.imageSize.width <= superViewWidth, @"");
-        imgView.wyh_size = style.imageSize;
-    }else{
-        NSAssert(style.imageMaxWidth>0, @"图片允许的最大宽度不得小于0");
-        CGFloat allowedMaxW = style.imageMaxWidth;
-        CGFloat allowedMaxH = style.imageMaxWidth*imgView.wyh_h/imgView.wyh_w;
-        imgView.wyh_w = imgView.wyh_w > allowedMaxW ? allowedMaxW :imgView.wyh_w;
-        imgView.wyh_h = imgView.wyh_h > allowedMaxH ? allowedMaxH:imgView.wyh_h;
+    CGFloat delta = CGRectGetHeight(imgView.bounds) / CGRectGetWidth(imgView.bounds);
+    CGFloat maxWidth = CGRectGetWidth(imgView.bounds);
+    if (maxWidth > CGRectGetWidth(UIScreen.mainScreen.bounds)*2.f/3.f) {
+        maxWidth = CGRectGetWidth(UIScreen.mainScreen.bounds)*2.f/3.f;
     }
-    CGFloat imagVx = (superViewWidth - imgView.wyh_w) * 0.5;
-    CGFloat imagVy = superViewHeight*style.imageOragionY;
-    imgView.frame = CGRectMake(imagVx, imagVy, imgView.wyh_w, imgView.wyh_h);
+    
     [self.coverView addSubview:imgView];
+    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.coverView.mas_centerX);
+        make.top.equalTo(self.coverView.mas_top).offset(CGRectGetHeight(self.coverView.bounds) * style.imageOragionY);
+        make.width.offset(maxWidth);
+        make.height.equalTo(imgView.mas_width).multipliedBy(delta);
+    }];
     self.tipImageView = imgView;
 }
 
@@ -389,21 +398,22 @@ static UITableViewCellSeparatorStyle superViewSeparatorStyle;/*不能使用const
     btn.titleLabel.textColor = [UIColor lightGrayColor];
     btn.frame = CGRectZero;
     [btn sizeToFit];
-    btn.wyh_w = btn.wyh_w>style.btnWidth?(btn.wyh_w+10):style.btnWidth;
-    btn.wyh_h = btn.wyh_h>style.btnHeight?btn.wyh_h:style.btnHeight;
-    CGFloat btnX = (superViewWidth - btn.wyh_w) * .5f;
-    CGFloat btnY = CGRectGetMaxY(self.descLabel.frame) + 20;/*20是一个神奇数字*/
-    btn.wyh_x = btnX;
-    btn.wyh_y = btnY;
+    CGFloat btnW = CGRectGetWidth(btn.bounds)>style.btnWidth?(CGRectGetWidth(btn.bounds)+10):style.btnWidth;
+    CGFloat btnH = CGRectGetHeight(btn.bounds)>style.btnHeight?CGRectGetWidth(btn.bounds):style.btnHeight;
     btn.layer.borderColor = style.btnLayerBorderColor.CGColor;
     btn.layer.borderWidth = style.btnLayerborderWidth;
     btn.layer.cornerRadius = style.btnLayerCornerRadius;
     btn.layer.masksToBounds = YES;
     self.tipButton = btn;
-    [self.coverView addSubview:btn];
-    self.coverView.userInteractionEnabled = YES;
     [btn addTarget:self action:@selector(btnClickAction) forControlEvents:UIControlEventTouchUpInside];
     
+    self.coverView.userInteractionEnabled = YES;
+    [self.coverView addSubview:btn];
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.descLabel.mas_bottom).offset(20.f);
+        make.centerX.equalTo(self.coverView.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(btnW, btnH));
+    }];
 }
 
 #pragma mark - btnClickAction

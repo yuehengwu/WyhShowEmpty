@@ -215,16 +215,16 @@
 		E8BD0E0622645BED00CE6CF5 /* Example Demo */ = {
 			isa = PBXGroup;
 			children = (
-				E8BD0E0722645BED00CE6CF5 /* Test3ViewController.h */,
-				E8BD0E0822645BED00CE6CF5 /* Test4ViewController.h */,
-				E8BD0E0922645BED00CE6CF5 /* TestSuperViewController.h */,
+				E8BD0E0E22645BED00CE6CF5 /* Test1ViewController.h */,
 				E8BD0E0A22645BED00CE6CF5 /* Test1ViewController.m */,
 				E8BD0E0B22645BED00CE6CF5 /* Test2ViewController.h */,
-				E8BD0E0C22645BED00CE6CF5 /* Test3ViewController.m */,
-				E8BD0E0D22645BED00CE6CF5 /* Test4ViewController.m */,
-				E8BD0E0E22645BED00CE6CF5 /* Test1ViewController.h */,
-				E8BD0E0F22645BED00CE6CF5 /* TestSuperViewController.m */,
 				E8BD0E1022645BED00CE6CF5 /* Test2ViewController.m */,
+				E8BD0E0722645BED00CE6CF5 /* Test3ViewController.h */,
+				E8BD0E0C22645BED00CE6CF5 /* Test3ViewController.m */,
+				E8BD0E0822645BED00CE6CF5 /* Test4ViewController.h */,
+				E8BD0E0D22645BED00CE6CF5 /* Test4ViewController.m */,
+				E8BD0E0922645BED00CE6CF5 /* TestSuperViewController.h */,
+				E8BD0E0F22645BED00CE6CF5 /* TestSuperViewController.m */,
 			);
 			path = "Example Demo";
 			sourceTree = "<group>";
@@ -290,6 +290,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -332,15 +333,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WyhShowEmpty_Example/Pods-WyhShowEmpty_Example-resources.sh",
 				"${PODS_ROOT}/../../WyhShowEmpty/Classes/WyhEmpty.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WyhEmpty.bundle",
 			);

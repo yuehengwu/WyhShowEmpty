@@ -1,16 +1,23 @@
 PODS:
-  - WyhShowEmpty (1.0.3)
+  - Masonry (1.1.0)
+  - WyhShowEmpty (1.0.4):
+    - Masonry
 
 DEPENDENCIES:
   - WyhShowEmpty (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
 
 EXTERNAL SOURCES:
   WyhShowEmpty:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WyhShowEmpty: bed5b92f8ab07da74513d3ceede6f54858238ab0
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  WyhShowEmpty: 20030cf828052f1d3ad840325fdb0691ee045c27
 
 PODFILE CHECKSUM: f34d7c3f049046025d9424ccb0ab2c486ac8f052
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

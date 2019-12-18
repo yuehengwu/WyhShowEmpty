@@ -37,7 +37,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [self.tableView wyh_showEmptyMsg:@"WyhShowEmptyDemo" desc:@"点击屏幕进入demo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:NO Handler:^{
+    [self.view wyh_showEmptyMsg:@"WyhShowEmptyDemo" desc:@"点击屏幕进入demo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:NO Handler:^{
         [weakSelf.view addSubview:weakSelf.tableView];
         [weakSelf.tableView reloadData];
     }];
