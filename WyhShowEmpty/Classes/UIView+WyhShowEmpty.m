@@ -187,6 +187,12 @@ static UITapGestureRecognizer *tempTapGes;
     ////            coverY = -64.0; // 因为当某些导航栏透明效果影响,tableView的wrapperView起点会偏移64
     ////        }
     //    }
+        
+    UIScrollView *ifScrollView ;
+    if ([style.superView isKindOfClass:UIScrollView.class] && style.superView.superview) {
+        ifScrollView = (UIScrollView *)style.superView;
+        style.superView = style.superView.superview;
+    }
     
     self.coverView = ({
         UIView *coverView = [[UIView alloc]init];
@@ -196,10 +202,7 @@ static UITapGestureRecognizer *tempTapGes;
     });
     [style.superView addSubview:self.coverView];
     [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(style.superView.mas_top);
-        make.left.equalTo(style.superView.mas_left);
-        make.right.equalTo(style.superView.mas_right);
-        make.bottom.equalTo(style.superView.mas_bottom);
+        make.edges.equalTo((ifScrollView) ? : style.superView);
     }];
 }
 

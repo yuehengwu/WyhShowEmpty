@@ -8,6 +8,7 @@
 
 #import "WyhViewController.h"
 
+#import <Masonry.h>
 #import <WyhShowEmpty.h>
 
 #import "Test1ViewController.h"
@@ -32,12 +33,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
-    
     [self performSelector:@selector(initialize) withObject:nil afterDelay:0.1f];
     
     __weak typeof(self) weakSelf = self;
     
-    [self.view wyh_showEmptyMsg:@"WyhShowEmptyDemo" desc:@"点击屏幕进入demo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:NO Handler:^{
+    [self.tableView wyh_showEmptyMsg:@"WyhShowEmptyDemo" desc:@"点击屏幕进入demo" dataCount:0 customImgName:nil imageOragionY:0.2 isHasBtn:NO Handler:^{
         [weakSelf.view addSubview:weakSelf.tableView];
         [weakSelf.tableView reloadData];
     }];
